@@ -44,7 +44,7 @@ class EnvironmentVariables {
 
   @IsNotEmpty()
   @IsBoolean()
-  DEBUG_LOGGING_TYPEORM: boolean;
+  DEBUG_LOGGING_TYPE_ORM: boolean;
 }
 
 export const validate = (config: Record<string, any>): Record<string, any> => {

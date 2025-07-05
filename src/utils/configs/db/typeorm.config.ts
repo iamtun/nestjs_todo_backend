@@ -1,5 +1,8 @@
-import { ConfigEnvironmentService } from '@modules/core/config-environment/config-environment.service';
+import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
+
+import { ConfigEnvironmentService } from '../../../modules/core/config-environment/config-environment.service';
 
 export const TYPE_ORM_PG_CONFIG = {
   type: 'postgres',
@@ -14,6 +17,11 @@ export const TYPE_ORM_PG_CONFIG = {
   cli: { migrationsDir: 'migrations' },
   migrationsRun: false,
   logging:
-    ConfigEnvironmentService.getIns().get('DEBUG_LOGGING_TYPEORM') === 'true',
+    ConfigEnvironmentService.getIns().get('DEBUG_LOGGING_TYPE_ORM') === 'true',
   extra: { charset: 'utf8mb4' },
 } as TypeOrmModuleOptions;
+
+export default registerAs('typeorm', () => TYPE_ORM_PG_CONFIG);
+export const connectionSource = new DataSource(
+  TYPE_ORM_PG_CONFIG as DataSourceOptions,
+);
