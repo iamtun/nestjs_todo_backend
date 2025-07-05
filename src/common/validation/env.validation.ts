@@ -1,5 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -24,14 +25,32 @@ class EnvironmentVariables {
   @Min(0)
   @Max(65535)
   PORT: number;
+
+  @IsNotEmpty()
+  POSTGRES_HOST: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  POSTGRES_PORT: number;
+
+  @IsNotEmpty()
+  POSTGRES_USER: string;
+
+  @IsNotEmpty()
+  POSTGRES_PASSWORD: string;
+
+  @IsNotEmpty()
+  POSTGRES_DATABASE: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  DEBUG_LOGGING_TYPEORM: boolean;
 }
 
 export const validate = (config: Record<string, any>): Record<string, any> => {
-  const validatedConfig = plainToInstance(
-    EnvironmentVariables,
-    config as object,
-    { enableImplicitConversion: true },
-  );
+  const validatedConfig = plainToInstance(EnvironmentVariables, config, {
+    enableImplicitConversion: true,
+  });
 
   const errors = validateSync(validatedConfig, {
     skipMissingProperties: false,

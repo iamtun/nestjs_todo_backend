@@ -32,6 +32,10 @@ export default tseslint.config(
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       'unused-imports/no-unused-imports': 'error',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
       'unused-imports/no-unused-vars': [
         'warn',
         {

@@ -12,7 +12,10 @@ export class ConfigEnvironmentService {
     if (!ConfigEnvironmentService.configService) {
       ConfigEnvironmentService.configService = new ConfigService();
     }
-
     return ConfigEnvironmentService.configService;
+  }
+
+  get<T>(key: string) {
+    return ConfigEnvironmentService.configService.get<T>(key);
   }
 }
