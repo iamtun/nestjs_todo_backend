@@ -1,0 +1,18 @@
+{
+  "EMAIL": {
+    "EMAIL_ERR_001": "Email is required",
+    "EMAIL_ERR_002": "Email must be a valid email address"
+  },
+  "PASSWORD": {
+    "PASSWORD_ERR_001": "Password is required",
+    "PASSWORD_ERR_002": "Password must be at least 6 characters and maximum 20 characters long"
+  },
+  "FIRST_NAME": {
+    "FIRST_NAME_ERR_001": "First name is required",
+    "FIRST_NAME_ERR_002": "First name must be at least 2 characters long"
+  },
+  "LAST_NAME": {
+    "LAST_NAME_ERR_001": "Last name is required",
+    "LAST_NAME_ERR_002": "Last name must be at least 2 characters long"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "USER": {
+    "USER_ERR_001": "User not found",
+    "USER_ERR_002": "User already exists"
+  }
+}

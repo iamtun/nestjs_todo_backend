@@ -1,12 +1,16 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Repository } from '@repositories/repository';
 import { User } from '@shared/entities';
+import { I18nService } from 'nestjs-i18n';
 
 import { RegisterDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly model: Repository) {}
+  constructor(
+    private readonly model: Repository,
+    private readonly i18n: I18nService,
+  ) {}
 
   async register(payload: RegisterDto): Promise<null> {
     const userExisted = await this.model.userRepository.findOne({
@@ -14,7 +18,8 @@ export class AuthService {
     });
 
     if (userExisted) {
-      throw new ConflictException('User already exists with this email');
+      const errorMessage = this.i18n.t('users.USER.USER_ERR_001');
+      throw new ConflictException(errorMessage);
     }
 
     const user = new User();

@@ -1,11 +1,11 @@
 import { HttpExceptionFilter } from '@common/filters';
 import { TransformResponseInterceptor } from '@common/interceptors/response.interceptor';
-import { ValidationException } from '@common/pipes/validation-exception.pipe';
 import {
   INestApplication,
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
+import { I18nValidationException } from 'nestjs-i18n';
 
 export const configApp = (app: INestApplication<any>) => {
   app.setGlobalPrefix('api');
@@ -20,7 +20,7 @@ export const configApp = (app: INestApplication<any>) => {
       transform: true,
       whitelist: true,
       forbidNonWhitelisted: false,
-      exceptionFactory: (errors) => new ValidationException(errors),
+      exceptionFactory: (errors) => new I18nValidationException(errors),
     }),
   );
 

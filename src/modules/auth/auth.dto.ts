@@ -1,4 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { i18nValidationMessage } from 'nestjs-i18n';
+import { I18nTranslations } from 'src/i18n/i18n.generated';
 
 export class RegisterDto {
   @IsNotEmpty()
@@ -6,15 +8,19 @@ export class RegisterDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({})
   @IsString()
   password: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({})
   @IsString()
   firstName: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.LAST_NAME.LAST_NAME_ERR_001',
+    ),
+  })
   @IsString()
   lastName: string;
 }

@@ -22,7 +22,8 @@
       "@common/*": ["src/common/*"],
       "@shared/*": ["src/shared/*"],
       "@repositories/*": ["src/repositories/*"],
-      "@config/*": ["src/configs/*"]
+      "@config/*": ["src/configs/*"],
+      "@i18n/*": ["src/i18n/*"]
     }
   }
 }
