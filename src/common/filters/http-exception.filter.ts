@@ -6,6 +6,8 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { HTTP_EXCEPTION_CODE } from '@shared/enums';
+import { IErrorResponse } from '@shared/interfaces';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -19,27 +21,28 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const errorResponse = {
+    const errorResponse: IErrorResponse = {
       success: false,
-      statusCode: status,
+      status,
       path: request.url,
       timestamp: new Date().toISOString(),
+      errors: [],
+      message: '',
+      code: '',
     };
 
     if (exception instanceof ValidationException) {
       errorResponse['errors'] = exception.getResponse();
-      errorResponse['errorMessage'] = null;
-      errorResponse['errorMessageCode'] = 'VALIDATION_ERROR';
+      errorResponse['message'] = 'Invalid request payload';
+      errorResponse['code'] = HTTP_EXCEPTION_CODE.VALIDATION_ERROR;
     } else if (exception instanceof HttpException) {
-      errorResponse.statusCode = exception.getStatus();
       errorResponse['errors'] = [];
-      errorResponse['errorMessage'] = exception.message;
-      errorResponse['errorMessageCode'] = 'TEMP_ERROR';
+      errorResponse['message'] = exception.message;
+      errorResponse['code'] = HTTP_EXCEPTION_CODE.HTTP_ERROR;
     } else {
-      errorResponse.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       errorResponse['errors'] = [];
-      errorResponse['errorMessage'] = 'Internal server error';
-      errorResponse['errorMessageCode'] = 'INTERNAL_SERVER_ERROR';
+      errorResponse['message'] = 'Internal server error';
+      errorResponse['code'] = HTTP_EXCEPTION_CODE.INTERNAL_SERVER_ERROR;
     }
 
     response.status(status).json(errorResponse);

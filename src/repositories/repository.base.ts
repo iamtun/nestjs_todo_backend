@@ -1,4 +1,4 @@
-import { BASE_ENTITY_DOMAIN } from '@utils/constants';
+import { BASE_ENTITY_DOMAIN } from 'src/shared/constants';
 import {
   DeepPartial,
   DeleteResult,

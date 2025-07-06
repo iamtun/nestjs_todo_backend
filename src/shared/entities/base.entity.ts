@@ -1,4 +1,4 @@
-import { BASE_ENTITY_DOMAIN } from 'src/utils/constants';
+import { BASE_ENTITY_DOMAIN } from '@shared/constants';
 import { Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {

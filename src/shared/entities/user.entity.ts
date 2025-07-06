@@ -1,4 +1,4 @@
-import { TABLE_NAMES, USER_ENTITY_DOMAIN } from '@utils/constants';
+import { TABLE_NAMES, USER_ENTITY_DOMAIN } from '@shared/constants';
 import * as bcrypt from 'bcrypt';
 import { BeforeInsert, Column, Entity, Index } from 'typeorm';
 
