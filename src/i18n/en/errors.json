@@ -1,6 +1,7 @@
 {
-  "USER": {
+  "user": {
     "USER_ERR_001": "User not found",
-    "USER_ERR_002": "User already exists"
+    "USER_ERR_002": "User already exists",
+    "USER_ERR_003": "Invalid user credentials"
   }
 }

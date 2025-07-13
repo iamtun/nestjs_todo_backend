@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsString,
   Max,
   Min,
   validateSync,
@@ -45,6 +46,22 @@ class EnvironmentVariables {
   @IsNotEmpty()
   @IsBoolean()
   DEBUG_LOGGING_TYPE_ORM: boolean;
+
+  @IsNotEmpty()
+  @IsString()
+  JWT_SECRET: string;
+
+  @IsNotEmpty()
+  @IsString()
+  JWT_EXPIRATION_TIME: string;
+
+  @IsNotEmpty()
+  @IsString()
+  JWT_REFRESH_SECRET: string;
+
+  @IsNotEmpty()
+  @IsString()
+  JWT_REFRESH_EXPIRATION_TIME: string;
 }
 
 export const validate = (config: Record<string, any>): Record<string, any> => {

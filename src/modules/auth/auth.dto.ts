@@ -1,3 +1,4 @@
+import { OmitType } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
@@ -66,3 +67,8 @@ export class RegisterDto {
   })
   lastName: string;
 }
+
+export class LoginDto extends OmitType(RegisterDto, [
+  'firstName',
+  'lastName',
+]) {}

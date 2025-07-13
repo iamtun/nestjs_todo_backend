@@ -6,9 +6,10 @@ import { Path } from "nestjs-i18n";
 /* prettier-ignore */
 export type I18nTranslations = {
     "errors": {
-        "USER": {
+        "user": {
             "USER_ERR_001": string;
             "USER_ERR_002": string;
+            "USER_ERR_003": string;
         };
     };
     "validation": {
