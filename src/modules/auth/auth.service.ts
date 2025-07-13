@@ -1,3 +1,4 @@
+import { I18nTranslations } from '@i18n/i18n.generated';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Repository } from '@repositories/repository';
 import { User } from '@shared/entities';
@@ -9,17 +10,17 @@ import { RegisterDto } from './auth.dto';
 export class AuthService {
   constructor(
     private readonly model: Repository,
-    private readonly i18n: I18nService,
+    private readonly i18n: I18nService<I18nTranslations>,
   ) {}
 
   async register(payload: RegisterDto): Promise<null> {
-    const userExisted = await this.model.userRepository.findOne({
+    const userExisted = await this.model.userRepository.checkExist({
       where: { email: payload.email },
     });
 
     if (userExisted) {
-      const errorMessage = this.i18n.t('users.USER.USER_ERR_001');
-      throw new ConflictException(errorMessage);
+      const errorMessage = this.i18n.t('errors.USER.USER_ERR_002');
+      throw new ConflictException(errorMessage, { cause: 'USER_ERR_002' });
     }
 
     const user = new User();

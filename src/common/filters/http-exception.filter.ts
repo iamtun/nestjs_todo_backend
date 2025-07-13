@@ -1,4 +1,3 @@
-import { ValidationException } from '@common/pipes/validation-exception.pipe';
 import {
   ArgumentsHost,
   Catch,
@@ -8,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { HTTP_EXCEPTION_CODE } from '@shared/enums';
 import { IErrorResponse } from '@shared/interfaces';
+import { toString } from 'lodash';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -29,16 +29,15 @@ export class HttpExceptionFilter implements ExceptionFilter {
       errors: [],
       message: '',
       code: '',
+      data: null,
     };
 
-    if (exception instanceof ValidationException) {
-      errorResponse['errors'] = exception.getResponse();
-      errorResponse['message'] = 'Invalid request payload';
-      errorResponse['code'] = HTTP_EXCEPTION_CODE.VALIDATION_ERROR;
-    } else if (exception instanceof HttpException) {
+    if (exception instanceof HttpException) {
       errorResponse['errors'] = [];
       errorResponse['message'] = exception.message;
-      errorResponse['code'] = HTTP_EXCEPTION_CODE.HTTP_ERROR;
+      errorResponse['code'] = exception.cause
+        ? toString(exception.cause)
+        : HTTP_EXCEPTION_CODE.HTTP_ERROR;
     } else {
       errorResponse['errors'] = [];
       errorResponse['message'] = 'Internal server error';

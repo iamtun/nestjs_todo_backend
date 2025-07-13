@@ -126,4 +126,9 @@ export class RepositoryBase<Entity extends ObjectLiteral> {
   rawQuery<TResult = any>(query: string, parameters?: any[]): Promise<TResult> {
     return this.repository.query(query, parameters);
   }
+
+  async checkExist(options: FindOneOptions<Entity>): Promise<boolean> {
+    const count = await this.repository.count(options);
+    return count > 0;
+  }
 }

@@ -6,6 +6,7 @@ export interface IErrorResponse {
   path: string;
   timestamp: string;
   success: boolean;
+  data: unknown;
 }
 
 export interface IPagination {

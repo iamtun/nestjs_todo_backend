@@ -1,26 +1,68 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { I18nTranslations } from 'src/i18n/i18n.generated';
 
 export class RegisterDto {
-  @IsNotEmpty()
+  @IsNotEmpty({
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.email.EMAIL_ERR_001',
+    ),
+  })
   @IsString()
-  @IsEmail()
+  @IsEmail(undefined, {
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.email.EMAIL_ERR_002',
+    ),
+  })
   email: string;
 
-  @IsNotEmpty({})
+  @IsNotEmpty({
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.password.PASSWORD_ERR_001',
+    ),
+  })
   @IsString()
+  @MinLength(6, {
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.password.PASSWORD_ERR_002',
+    ),
+  })
+  @MaxLength(20, {
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.password.PASSWORD_ERR_002',
+    ),
+  })
   password: string;
 
-  @IsNotEmpty({})
+  @IsNotEmpty({
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.first_name.FIRST_NAME_ERR_001',
+    ),
+  })
   @IsString()
+  @MinLength(2, {
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.first_name.FIRST_NAME_ERR_002',
+    ),
+  })
   firstName: string;
 
   @IsNotEmpty({
     message: i18nValidationMessage<I18nTranslations>(
-      'validation.LAST_NAME.LAST_NAME_ERR_001',
+      'validation.last_name.LAST_NAME_ERR_001',
     ),
   })
   @IsString()
+  @MinLength(2, {
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.last_name.LAST_NAME_ERR_002',
+    ),
+  })
   lastName: string;
 }
