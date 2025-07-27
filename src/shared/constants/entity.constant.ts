@@ -11,8 +11,19 @@ export const USER_ENTITY_DOMAIN = {
     PASSWORD: 'password',
     FIRST_NAME: 'firstName',
     LAST_NAME: 'lastName',
-    CURRENT_HASHED_REFRESH_TOKEN: 'currentHashedRefreshToken',
     UNIQUES: { EMAIL: `${UNIQUE_PREFIX}${TABLE_NAMES.USER}_email` },
+  },
+  USER_TOKENS_COLUMNS: {
+    USER_ID: 'userId',
+    REFRESH_TOKEN_HASH: 'refresh_token_hash',
+    IS_REVOKED: 'is_revoked',
+    EXPIRED_AT: 'expired_at',
+    UNIQUES: {
+      REFRESH_TOKEN_HASH: `${UNIQUE_PREFIX}${TABLE_NAMES.USER_TOKENS}_refresh_token_hash`,
+    },
+    FOREIGN_KEYS: {
+      USER_ID: `${FOREIGN_KEY_PREFIX}${TABLE_NAMES.USER_TOKENS}_${TABLE_NAMES.USER}_user_id`,
+    },
   },
 };
 

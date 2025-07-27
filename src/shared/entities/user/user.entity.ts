@@ -1,8 +1,9 @@
 import { TABLE_NAMES, USER_ENTITY_DOMAIN } from '@shared/constants';
-import * as bcrypt from 'bcrypt';
-import { BeforeInsert, Column, Entity, Index } from 'typeorm';
+import { compare, encrypt } from '@shared/helpers/security.helper';
+import { BeforeInsert, Column, Entity, Index, OneToMany } from 'typeorm';
 
-import { BaseEntitySoftDelete } from './base.entity';
+import { BaseEntitySoftDelete } from '../base.entity';
+import { UserToken } from './user-token.entity';
 
 @Entity(TABLE_NAMES.USER)
 export class User extends BaseEntitySoftDelete {
@@ -35,20 +36,15 @@ export class User extends BaseEntitySoftDelete {
   })
   lastName: string;
 
-  @Column({
-    name: USER_ENTITY_DOMAIN.USER_COLUMNS.CURRENT_HASHED_REFRESH_TOKEN,
-    type: 'varchar',
-    nullable: true,
-  })
-  currentHashedRefreshToken?: string | null;
-
   @BeforeInsert()
   async hashPassword() {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.password = await encrypt(this.password);
   }
 
   async comparePassword(password: string): Promise<boolean> {
-    return await bcrypt.compare(password, this.password);
+    return await compare(password, this.password);
   }
+
+  @OneToMany(() => UserToken, (userToken) => userToken.userId)
+  userTokens?: UserToken[];
 }

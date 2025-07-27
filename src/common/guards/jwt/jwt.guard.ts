@@ -3,15 +3,9 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class JWTAuthGuard extends AuthGuard('jwt') {
-  handleRequest(error: any, user) {
+  handleRequest(error: any, user: any) {
     if (error || !user) {
-      throw (
-        error ||
-        new UnauthorizedException({
-          message: 'Unauthorized',
-          errorCode: 'AAI_ERR_001',
-        })
-      );
+      throw new UnauthorizedException();
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
