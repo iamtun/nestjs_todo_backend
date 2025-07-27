@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-import { ConfigEnvironmentService } from '../../modules/core/config-environment/config-environment.service';
+import { ConfigEnvironmentService } from '../../_core/config-environment/config-environment.service';
 
 export const TYPE_ORM_PG_CONFIG = {
   type: 'postgres',

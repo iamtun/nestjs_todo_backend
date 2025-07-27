@@ -1,4 +1,4 @@
-import { ConfigEnvironmentService } from '@modules/core/config-environment';
+import { ConfigEnvironmentService } from '@core/config-environment';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { Repository } from '@repositories/repository';

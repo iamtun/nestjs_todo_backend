@@ -1,5 +1,5 @@
+import { ConfigEnvironmentService } from '@core/config-environment';
 import { I18nTranslations } from '@i18n/i18n.generated';
-import { ConfigEnvironmentService } from '@modules/core/config-environment';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from '@repositories/repository';

@@ -1,5 +1,5 @@
 import { configApp } from '@config/app';
-import { ConfigEnvironmentService } from '@modules/core/config-environment';
+import { ConfigEnvironmentService } from '@core/config-environment';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
