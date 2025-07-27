@@ -17,7 +17,7 @@ export class AuthService {
   ) {}
 
   async register(payload: RegisterDto): Promise<null> {
-    const userExisted = await this.model.userRepository.checkExist({
+    const userExisted = await this.model.userRepository.exists({
       where: { email: payload.email },
     });
 

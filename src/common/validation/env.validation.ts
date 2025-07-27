@@ -49,7 +49,7 @@ class EnvironmentVariables {
 
   @IsNotEmpty()
   @IsString()
-  JWT_SECRET: string;
+  JWT_SECRET_KEY: string;
 
   @IsNotEmpty()
   @IsString()
@@ -57,7 +57,7 @@ class EnvironmentVariables {
 
   @IsNotEmpty()
   @IsString()
-  JWT_REFRESH_SECRET: string;
+  JWT_REFRESH_SECRET_KEY: string;
 
   @IsNotEmpty()
   @IsString()

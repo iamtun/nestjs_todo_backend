@@ -24,7 +24,7 @@
       "@repositories/*": ["src/repositories/*"],
       "@config/*": ["src/configs/*"],
       "@i18n/*": ["src/i18n/*"],
-      "@core/*": ["src/_core/*"],
+      "@core/*": ["src/_core/*"]
     }
   }
 }

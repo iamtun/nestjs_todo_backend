@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   imports: [
     JwtModule.register({
       global: true,
-      secret: ConfigEnvironmentService.getIns().get<string>('JWT_SECRET'),
+      secret: ConfigEnvironmentService.getIns().get<string>('JWT_SECRET_KEY'),
       signOptions: {
         expiresIn: ConfigEnvironmentService.getIns().get<string>(
           'JWT_EXPIRATION_TIME',
@@ -20,5 +20,6 @@ import { AuthService } from './auth.service';
   ],
   providers: [AuthService, Repository],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}
