@@ -1,5 +1,5 @@
 import { TABLE_NAMES, USER_ENTITY_DOMAIN } from '@shared/constants';
-import { encrypt } from '@shared/helpers/security.helper';
+import { compare, encrypt } from '@shared/helpers/security.helper';
 import { Column, Entity, JoinColumn, ManyToOne, Unique } from 'typeorm';
 
 import { BaseEntity } from '../base.entity';
@@ -47,5 +47,9 @@ export class UserToken extends BaseEntity {
 
   async hashRefreshToken(refreshToken: string): Promise<string> {
     return await encrypt(refreshToken);
+  }
+
+  async compareRefreshToken(refreshToken: string): Promise<boolean> {
+    return await compare(refreshToken, this.refreshTokenHash);
   }
 }

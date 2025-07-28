@@ -10,6 +10,8 @@ export type I18nTranslations = {
             "USER_ERR_001": string;
             "USER_ERR_002": string;
             "USER_ERR_003": string;
+            "USER_ERR_004": string;
+            "USER_ERR_005": string;
         };
     };
     "validation": {

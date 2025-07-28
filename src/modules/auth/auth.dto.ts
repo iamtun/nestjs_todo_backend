@@ -1,6 +1,7 @@
 import { OmitType } from '@nestjs/swagger';
 import {
   IsEmail,
+  IsJWT,
   IsNotEmpty,
   IsString,
   MaxLength,
@@ -72,3 +73,10 @@ export class LoginDto extends OmitType(RegisterDto, [
   'firstName',
   'lastName',
 ]) {}
+
+export class RefreshTokenDto {
+  @IsJWT()
+  @IsString()
+  @IsNotEmpty()
+  refreshToken: string;
+}

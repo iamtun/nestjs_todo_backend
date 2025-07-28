@@ -1,9 +1,11 @@
 import { ConfigEnvironmentService } from '@core/config-environment';
 import { I18nTranslations } from '@i18n/i18n.generated';
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from '@repositories/repository';
@@ -73,8 +75,9 @@ export class AuthService {
         expiresIn: ConfigEnvironmentService.getIns().get<string>(
           'JWT_REFRESH_EXPIRATION_TIME',
         ),
-        secret:
-          ConfigEnvironmentService.getIns().get<string>('JWT_REFRESH_SECRET'),
+        secret: ConfigEnvironmentService.getIns().get<string>(
+          'JWT_REFRESH_SECRET_KEY',
+        ),
       });
 
       // Save the refresh token hash to the database
@@ -96,6 +99,70 @@ export class AuthService {
       await this.model.userTokenRepository.save(userToken);
 
       return { accessToken, refreshToken };
+    } catch (err) {
+      throw new InternalServerErrorException(err.message);
+    }
+  }
+
+  async refreshToken(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify(refreshToken, {
+        secret: ConfigEnvironmentService.getIns().get<string>(
+          `JWT_REFRESH_SECRET_KEY`,
+        ),
+      });
+
+      const userId = payload.sub;
+
+      const userToken = await this.model.userTokenRepository.findOne({
+        where: { userId: userId },
+        select: { refreshTokenHash: true },
+      });
+
+      if (!userToken) {
+        const errorMessage = this.i18n.t('errors.user.USER_ERR_004');
+        throw new ConflictException(errorMessage, { cause: 'USER_ERR_004' });
+      }
+
+      const isRefreshTokenValid =
+        await userToken.compareRefreshToken(refreshToken);
+
+      if (!isRefreshTokenValid) {
+        const errorMessage = this.i18n.t('errors.user.USER_ERR_004');
+        throw new ConflictException(errorMessage, { cause: 'USER_ERR_004' });
+      }
+
+      const payloadToken = { sub: userId };
+      const accessToken = this.jwtService.sign(payloadToken);
+
+      return { accessToken };
+    } catch (err) {
+      if (err.name === 'TokenExpiredError') {
+        const errorMessage = this.i18n.t('errors.user.USER_ERR_005');
+        throw new UnauthorizedException(errorMessage, {
+          cause: 'USER_ERR_005',
+        });
+      }
+
+      if (err.name === 'JsonWebTokenError') {
+        const errorMessage = this.i18n.t('errors.user.USER_ERR_004');
+        throw new BadRequestException(errorMessage, { cause: 'USER_ERR_004' });
+      }
+      throw new InternalServerErrorException(err.message);
+    }
+  }
+
+  async logout(userId: string): Promise<null> {
+    try {
+      const userToken = await this.model.userTokenRepository.findOne({
+        where: { userId: userId },
+      });
+
+      if (userToken) {
+        await this.model.userTokenRepository.delete({ id: userToken.id });
+      }
+
+      return null;
     } catch (err) {
       throw new InternalServerErrorException(err.message);
     }

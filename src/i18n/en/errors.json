@@ -2,6 +2,8 @@
   "user": {
     "USER_ERR_001": "User not found",
     "USER_ERR_002": "User already exists",
-    "USER_ERR_003": "Invalid user credentials"
+    "USER_ERR_003": "Invalid user credentials",
+    "USER_ERR_004": "User token invalid",
+    "USER_ERR_005": "User token expired"
   }
 }
