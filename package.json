@@ -20,8 +20,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "husky",
     "typeorm": "ts-node -r dotenv/config ./node_modules/typeorm/cli",
-    "migrate:generate": "npm run typeorm -- migration:generate ./migrations/$npm_config_name -d ./src/configs/db/typeorm.config.ts -p",
-    "migrate:up": "npm run -- typeorm migration:run -d ./src/configs/db/typeorm.config.ts"
+    "migrate-dev:generate": "npm run typeorm -- migration:generate ./migrations/$npm_config_name -d ./src/configs/db/typeorm.config.ts -p",
+    "migrate-dev:up": "npm run -- typeorm migration:run -d ./src/configs/db/typeorm.config.ts",
+    "migrate:up": "npm run -- typeorm migration:run -d ./dist/src/configs/db/typeorm.config.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

@@ -1,0 +1,10 @@
+node_modules
+dist
+test
+coverage
+*.log
+.git
+Dockerfile
+README.md
+*.md
+commitlint.config.ts
