@@ -55,15 +55,15 @@ export class AuthService {
       });
 
       if (!user) {
-        const errorMessage = this.i18n.t('errors.user.USER_ERR_003');
-        throw new ConflictException(errorMessage, { cause: 'USER_ERR_003' });
+        const errorMessage = this.i18n.t('errors.auth.AUTH_ERR_004');
+        throw new ConflictException(errorMessage, { cause: 'AUTH_ERR_004' });
       }
 
       const isPasswordValid = await user.comparePassword(password);
 
       if (!isPasswordValid) {
-        const errorMessage = this.i18n.t('errors.user.USER_ERR_003');
-        throw new ConflictException(errorMessage, { cause: 'USER_ERR_003' });
+        const errorMessage = this.i18n.t('errors.auth.AUTH_ERR_004');
+        throw new ConflictException(errorMessage, { cause: 'AUTH_ERR_004' });
       }
 
       const userId = user.id;
@@ -120,16 +120,16 @@ export class AuthService {
       });
 
       if (!userToken) {
-        const errorMessage = this.i18n.t('errors.user.USER_ERR_004');
-        throw new ConflictException(errorMessage, { cause: 'USER_ERR_004' });
+        const errorMessage = this.i18n.t('errors.auth.AUTH_ERR_001');
+        throw new ConflictException(errorMessage, { cause: 'AUTH_ERR_001' });
       }
 
       const isRefreshTokenValid =
         await userToken.compareRefreshToken(refreshToken);
 
       if (!isRefreshTokenValid) {
-        const errorMessage = this.i18n.t('errors.user.USER_ERR_004');
-        throw new ConflictException(errorMessage, { cause: 'USER_ERR_004' });
+        const errorMessage = this.i18n.t('errors.auth.AUTH_ERR_001');
+        throw new ConflictException(errorMessage, { cause: 'AUTH_ERR_001' });
       }
 
       const payloadToken = { sub: userId };
@@ -138,15 +138,15 @@ export class AuthService {
       return { accessToken };
     } catch (err) {
       if (err.name === 'TokenExpiredError') {
-        const errorMessage = this.i18n.t('errors.user.USER_ERR_005');
+        const errorMessage = this.i18n.t('errors.auth.AUTH_ERR_003');
         throw new UnauthorizedException(errorMessage, {
-          cause: 'USER_ERR_005',
+          cause: 'AUTH_ERR_003',
         });
       }
 
       if (err.name === 'JsonWebTokenError') {
-        const errorMessage = this.i18n.t('errors.user.USER_ERR_004');
-        throw new BadRequestException(errorMessage, { cause: 'USER_ERR_004' });
+        const errorMessage = this.i18n.t('errors.auth.AUTH_ERR_001');
+        throw new BadRequestException(errorMessage, { cause: 'AUTH_ERR_001' });
       }
       throw new InternalServerErrorException(err.message);
     }

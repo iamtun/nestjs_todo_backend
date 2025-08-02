@@ -1,0 +1,12 @@
+{
+  "user": {
+    "USER_ERR_001": "Không tìm thấy người dùng",
+    "USER_ERR_002": "Người dùng đã tồn tại"
+  },
+  "auth": {
+    "AUTH_ERR_001": "Định dạng token không hợp lệ",
+    "AUTH_ERR_002": "Token đã bị thu hồi",
+    "AUTH_ERR_003": "Token người dùng đã hết hạn",
+    "AUTH_ERR_004": "Thông tin đăng nhập của người dùng không hợp lệ"
+  }
+}

@@ -1,4 +1,10 @@
-import { Module } from '@nestjs/common';
+import { AuthMiddleware } from '@common/middlewares/auth.middleware';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 
 import { JwtStrategy } from './jwt/jwt-strategy';
@@ -8,4 +14,11 @@ import { JwtStrategy } from './jwt/jwt-strategy';
   providers: [JwtStrategy],
   exports: [JwtStrategy],
 })
-export class GuardModule {}
+export class GuardModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude({ path: '/auth/*', method: RequestMethod.ALL, version: '1' })
+      .forRoutes('*');
+  }
+}

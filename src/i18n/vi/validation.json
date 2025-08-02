@@ -1,0 +1,18 @@
+{
+  "email": {
+    "EMAIL_ERR_001": "Email được yêu cầu",
+    "EMAIL_ERR_002": "Email phải là một địa chỉ email hợp lệ"
+  },
+  "password": {
+    "PASSWORD_ERR_001": "Mật khẩu được yêu cầu",
+    "PASSWORD_ERR_002": "Mật khẩu phải có ít nhất 6 ký tự và tối đa 20 ký tự"
+  },
+  "first_name": {
+    "FIRST_NAME_ERR_001": "Tên được yêu cầu",
+    "FIRST_NAME_ERR_002": "Tên phải có ít nhất 2 ký tự"
+  },
+  "last_name": {
+    "LAST_NAME_ERR_001": "Họ được yêu cầu",
+    "LAST_NAME_ERR_002": "Họ phải có ít nhất 2 ký tự"
+  }
+}

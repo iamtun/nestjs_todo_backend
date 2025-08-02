@@ -1,9 +1,12 @@
 {
   "user": {
     "USER_ERR_001": "User not found",
-    "USER_ERR_002": "User already exists",
-    "USER_ERR_003": "Invalid user credentials",
-    "USER_ERR_004": "User token invalid",
-    "USER_ERR_005": "User token expired"
+    "USER_ERR_002": "User already exists"
+  },
+  "auth": {
+    "AUTH_ERR_001": "Invalid token",
+    "AUTH_ERR_002": "Token has been revoked",
+    "AUTH_ERR_003": "User token expired",
+    "AUTH_ERR_004": "Invalid user credentials"
   }
 }

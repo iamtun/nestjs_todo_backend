@@ -9,9 +9,12 @@ export type I18nTranslations = {
         "user": {
             "USER_ERR_001": string;
             "USER_ERR_002": string;
-            "USER_ERR_003": string;
-            "USER_ERR_004": string;
-            "USER_ERR_005": string;
+        };
+        "auth": {
+            "AUTH_ERR_001": string;
+            "AUTH_ERR_002": string;
+            "AUTH_ERR_003": string;
+            "AUTH_ERR_004": string;
         };
     };
     "validation": {
